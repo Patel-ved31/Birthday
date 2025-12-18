@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nishi's Birthday Surprise</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  background:
+    radial-gradient(circle at top,#ff8ad6 0,transparent 55%),
+    radial-gradient(circle at bottom,#b78cff 0,transparent 55%),
+    radial-gradient(circle at 10% 20%,#ffffff66 1px,transparent 1px),
+    radial-gradient(circle at 80% 40%,#ffffff66 1px,transparent 1px);
+  background-color:#120020;
+  color:#fff;
+  font-size: 30px;
+}
+h1 { font-size: 2.4rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.6rem; }
+p  { font-size: 1.05rem; line-height: 1.7; }
+
+
+.app{
+  width:100%;
+  max-width:900px;
+  padding:2rem 1.5rem;
+  position:relative;
+}
+
+.page{
+  display:none;
+  min-height:85vh;
+  text-align:center;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1.2rem;
+}
+
+.page.active{
+  display:flex;
+}
+
+.btn{
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff4fa5,#ffb347);
+  color:#fff;
+  cursor:pointer;
+  animation:pulse 1.4s infinite;
+  padding: 1rem 2.4rem;     /* bigger button */
+  font-size: 1.25rem;      /* bigger text */
+  font-weight: 600;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
+/* ================= PAGE 1 ================= */
+.countdown-box{
+  padding:2rem 2.5rem;
+  border-radius:24px;
+  background:linear-gradient(135deg,#2b013a,#5e1185);
+}
+
+.countdown-number{
+  font-size:4rem;
+  font-weight:800;
+}
+
+/* ================= PAGE 3 : REAL CAKE ================= */
+
+.cake-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:cakePop .8s ease-out;
+  margin:2rem 0;
+}
+
+@keyframes cakePop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.cake-layer{
+  width:260px;
+  height:60px;
+  border-radius:14px;
+  margin-bottom:6px;
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+
+.cake-layer.top{
+  background:linear-gradient(135deg,#ffb3e6,#ff7ac8);
+  position:relative;
+}
+
+.cake-layer.middle{
+  background:linear-gradient(135deg,#c9a0ff,#9f5fff);
+}
+
+.cake-layer.bottom{
+  background:linear-gradient(135deg,#ff8ad6,#b84cff);
+}
+
+/* Candle */
+.candle{
+  position:absolute;
+  top:-32px;
+  left:50%;
+  transform:translateX(-50%);
+  width:10px;
+  height:28px;
+  background:#fff;
+  border-radius:4px;
+}
+
+.flame{
+  width:12px;
+  height:16px;
+  background:radial-gradient(circle,#ffd966,#ff7a00);
+  border-radius:50%;
+  margin:-14px auto 0;
+  animation:flicker .25s infinite alternate;
+}
+
+@keyframes flicker{
+  from{transform:scale(1)}
+  to{transform:scale(1.15);opacity:.8}
+}
+
+.cake-wrapper.blown .flame{
+  display:none;
+}
+
+.happy-msg{
+  display:none;
+  font-size:1.8rem;
+  font-weight:700;
+}
+
+.happy-msg.show{
+  display:block;
+  animation:popIn .6s ease-out;
+}
+
+@keyframes popIn{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* ===== PAGE 4: HEARTBEAT CONFESSION ===== */
+
+.heart-area {
+  margin: 1.5rem 0;
+}
+
+.heart {
+  width: 90px;
+  height: 90px;
+  background: #ff4fa5;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: heartbeat 1.2s infinite;
+  cursor: pointer;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: #ff4fa5;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -45px;
+  left: 0;
+}
+
+.heart::after {
+  left: 45px;
+  top: 0;
+}
+
+@keyframes heartbeat {
+  0%   { transform: rotate(-45deg) scale(1); }
+  25%  { transform: rotate(-45deg) scale(1.15); }
+  50%  { transform: rotate(-45deg) scale(1); }
+  75%  { transform: rotate(-45deg) scale(1.15); }
+  100% { transform: rotate(-45deg) scale(1); }
+}
+
+.heartbeat-text {
+  font-size: 2rem;
+  font-weight: 700;
+  min-height: 2.2rem;
+  margin-top: 1.5rem;
+  letter-spacing: 1px;
+}
+
+
+/* ================= PAGE 5 CHIBI BOY ================= */
+
+.chibi-boy{
+  width:200px;
+  margin:1rem auto;
+}
+
+#boy.crying{
+  animation:cry .8s infinite alternate;
+}
+/* ===== PAGE 5: REALISTIC PHONE CHECK ===== */
+
+#boy {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+/* Phone screen glow */
+.chibi-boy .phone-screen {
+  animation: screenBlink 1.6s infinite;
+}
+
+@keyframes screenBlink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+#boyText{
+  font-size: 2rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 600;
+}
+
+
+/* Phone checking: subtle hand + head movement */
+#boy.searching .chibi-boy {
+  animation: phoneScroll 1.8s infinite ease-in-out;
+  transform-origin: center bottom;
+}
+
+/* Crying: slow body drop */
+#boy.crying .chibi-boy {
+  animation: sadDrop 1.2s infinite alternate;
+}
+
+@keyframes phoneScroll {
+  0%   { transform: rotate(0deg) translateY(0); }
+  40%  { transform: rotate(-2deg) translateY(2px); }
+  70%  { transform: rotate(1deg) translateY(0); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes sadDrop {
+  from { transform: translateY(0); }
+  to   { transform: translateY(6px); }
+}
+
+@keyframes cry{
+  from{transform:translateY(0)}
+  to{transform:translateY(-6px)}
+}
+
+.message-box{
+  background:#fff;
+  color:#300030;
+  padding:1.2rem;
+  border-radius:18px;
+  max-height:300px;
+  overflow:auto;
+  width:90%;
+  max-width:520px;
+  text-align:left;
+  font-family :Verdana, Geneva, Tahoma, sans-serif;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <div class="countdown-box">
+    <div class="countdown-number" id="countdownNumber">3</div>
+    <p>Crafting your special moment</p>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <div style="font-size:10rem">🧸</div>
+  <h2 style="font-size:2rem">A cutiepie was born today, 20 years ago!</h2>
+  <p style="font-size:1.5rem">yes , it's you baby girl 💗</p>
+  <button class="btn" onclick="startMusic(); goToPage(3)">Start the surprise →</button>
+</section>
+
+<!-- PAGE 3 : REAL CAKE -->
+<section class="page" id="page3">
+  <h2>Let’s set the mood 🎂</h2>
+
+  <div class="cake-wrapper" id="cake">
+    <div class="cake-layer top">
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+    </div>
+    <div class="cake-layer middle"></div>
+    <div class="cake-layer bottom"></div>
+  </div>
+
+  <button class="btn" id="blowBtn">Blow the candle</button>
+
+  <div class="happy-msg" id="happyMsg">Happy Birthday Nishi 💕</div>
+
+  <button class="btn" id="toPage4Btn" style="display:none" onclick="goToPage(4)">
+    Let's celebrate →
+  </button>
+</section>
+
+<!-- PAGE 4: HEARTBEAT CONFESSION -->
+<section class="page" id="page4">
+  <h2>Put your finger on my heart 💗</h2>
+  <p class="subtitle">Tap and feel what I feel</p>
+
+  <div class="heart-area">
+    <div class="heart" id="heart"></div>
+  </div>
+
+  <div class="heartbeat-text" id="heartbeatText"></div>
+
+  <button class="btn" id="toPage5Btn" style="display:none;" onclick="goToPage(5)">
+    I feel it 💞
+  </button>
+</section>
+
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+  <h2>Looking for our picture… 📱</h2>
+  <div id="boy" class="searching">
+    <img class="chibi-boy" src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200'>
+    <circle cx='60' cy='50' r='30' fill='%23ffcfb3'/>
+    <rect x='40' y='90' width='40' height='60' rx='10' fill='%23ff7aa2'/>
+  </svg>">
+  </div>
+  <p id="boyText">Just checking the gallery...</p>
+  <button class="btn" id="openMsgBtn" style="display:none;" onclick="goToPage(6)">Open my message</button>
+</section>
+
+<!-- PAGE 6 -->
+<section class="page" id="page6">
+  <h2>For you, from my heart 🤍</h2>
+  <div class="message-box">
+  <p>Happy Birthday Nishi 💛</p>
+  <br />
+  <p>
+    I don’t know how to explain it perfectly, but you’ve genuinely become one of the most important person in my life.
+    I’m really grateful for you — for your presence, for your smile, for the way you make even normal days feel different.
+  </p>
+  <br />
+  <p>
+    I’m not trying to rush you or push you into any decision.
+    Whatever you choose… I want you to know something from my heart:
+  </p>
+  <br />
+    <p>
+      I might get upset sometimes,<br />
+      I might feel hurt or disappointed at moments…<br />
+      but I will never hate you. Never.<br />
+      There’s no version of me that could ever do that.
+      You mean too much to me for that.
+    </p>
+    <br />
+    <p>
+      No matter where life takes us, I’ll always care for you, I’ll always wish the best for you,
+      and I’ll always be thankful that our paths even crossed.
+    </p>
+    <br />
+    <p>
+      I hope this birthday brings you happiness, peace, and everything beautiful that you deserve.
+      Enjoy your special day ✨
+    </p>
+  </div>
+
+  <button class="btn" onclick="goToPage(7)">One last thing →</button>
+</section>
+
+<!-- PAGE 7 -->
+<section class="page" id="page7">
+  <div style="font-size:10rem">🧸💖</div>
+  <h2 style="font-size: 2rem;">Lots of Love for you</h2>
+  <button class="btn" onclick="goToPage(1)">Replay ⟳</button>
+</section>
+
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="happy-birthday-322777 - Copy.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+let intervals=[];
+
+function goToPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+  if(n===1) startCountdown();
+  if(n===3) initCake();
+  if(n===4) initPage4();
+  if(n===5) initBoy();
+}
+
+function startCountdown(){
+  let c=3;
+  const el=document.getElementById('countdownNumber');
+  el.textContent=c;
+  const id=setInterval(()=>{
+    c--;
+    if(c===0){
+      clearInterval(id);
+      goToPage(2);
+    }
+    el.textContent=c;
+  },1000);
+}
+
+function initCake(){
+  const cake=document.getElementById('cake');
+  const msg=document.getElementById('happyMsg');
+  const btn=document.getElementById('toPage4Btn');
+  cake.classList.remove('blown');
+  msg.classList.remove('show');
+  btn.style.display='none';
+
+  document.getElementById('blowBtn').onclick=()=>{
+    cake.classList.add('blown');
+    setTimeout(()=>{
+      msg.classList.add('show');
+      btn.style.display='inline-block';
+    },700);
+  }
+}
+
+/* --- PAGE 4: HEARTBEAT LOGIC --- */
+function initPage4() {
+  const heart = document.getElementById("heart");
+  const textEl = document.getElementById("heartbeatText");
+  const nextBtn = document.getElementById("toPage5Btn");
+
+  const words = ["You", "are", "my", "sweetuuudyyy"];
+  let index = 0;
+
+  textEl.textContent = "";
+  nextBtn.style.display = "none";
+
+  heart.onclick = () => {
+    if (index < words.length) {
+      textEl.textContent += (index === 0 ? "" : " ") + words[index];
+      index++;
+    }
+
+    if (index === words.length) {
+      nextBtn.style.display = "inline-flex";
+    }
+  };
+}
+
+
+function initBoy(){
+  const boy = document.getElementById("boy");
+  const boyText = document.getElementById("boyText");
+  const openBtn = document.getElementById("openMsgBtn");
+
+  // Reset state
+  boy.className = "searching";
+  openBtn.style.display = "none";   // IMPORTANT
+  boyText.textContent =
+    "Just checking the gallery... maybe there’s one hidden somewhere...";
+
+  // After 5 seconds → realisation
+  setTimeout(() => {
+    boy.className = "crying";
+    boyText.textContent = "sorry we don't have any photo together 💔";
+
+    // NOW show the button
+    openBtn.style.display = "inline-flex";
+  }, 5000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>goToPage(1));
+
+function startMusic() {
+  const music = document.getElementById("bgMusic");
+  if (!music || !music.paused) return;
+
+  music.volume = 0;
+  music.play().catch(() => {});
+
+  let vol = 0;
+  const fade = setInterval(() => {
+    vol += 0.05;
+    if (vol >= 0.4) {
+      music.volume = 0.4;
+      clearInterval(fade);
+    } else {
+      music.volume = vol;
+    }
+  }, 200);
+}
+
+</script>
+</body>
+</html>
